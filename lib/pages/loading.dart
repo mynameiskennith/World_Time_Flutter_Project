@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class Loading extends StatefulWidget {
   const Loading({super.key});
@@ -8,12 +11,20 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-    void getData() async {
-    
+  void getData() async {
+    Response response =
+        await get(Uri.https('jsonplaceholder.typicode.com', 'todos/1'));
+    //A json string is being printed.
+    //i.e. it looks like a object, but it is not, we cannot access each of the data as in key
+    //value pairs, the entire content is a "JSON STRING" !!!
+
+    // print(response.body);
+    Map data = jsonDecode(response.body);
+    print(data);
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     getData();
   }
